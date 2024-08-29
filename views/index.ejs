@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <h3 class="center-align">Student Queries</h3>
+
+    <!-- Trigger for Modal -->
+    <div class="row">
+        <div class="center-align">
+        <div class="col s12">
+            <a class="waves-effect waves-light btn modal-trigger" href="#queryModal">Submit a Query</a>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="queryModal" class="modal">
+        <div class="modal-content">
+            <h4>Submit Your Query</h4>
+            <form id="queryForm" action="/add-query" method="POST">
+                <div class="input-field">
+                    <input id="student_name" type="text" name="studentName" required>
+                    <label for="student_name">Student Name</label>
+                </div>
+                <div class="input-field">
+                    <input id="email" type="email" name="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field">
+                    <textarea id="query_text" class="materialize-textarea query-textarea" name="queryText" required></textarea>
+                    <label for="query_text">Write your query/problem</label>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit">Submit Query</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <!-- Displaying the Queries -->
+    <ul class="collection">
+        <% queries.forEach(query => { %>
+            <li class="collection-item">
+                <strong><%= query.studentName %></strong> <%= query.queryText %> <br>
+                <em><%= query.createdAt.toDateString() %></em>
+            </li>
+        <% }) %>
+    </ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize CSS components
+        M.updateTextFields();
+        M.Modal.init(document.querySelectorAll('.modal'));
+    });
+</script>
+</body>
+</html>
